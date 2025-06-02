@@ -27,12 +27,10 @@ const s = StyleSheet.create({
 });
 
 export function AllergyCard({ allergy }: { allergy: Allergy }) {
-  const {
-    code: { coding: [{ display = '' } = {}] = [] } = {},
-    note: [{ text = '' } = {}] = [],
-    reaction: [{ severity = '' } = {}] = [],
-    recordedDate = ''
-  } = allergy ?? {};
+ 
+  const severity = allergy.severity ?? '';
+  const text = allergy?.substance?.text ?? '';
+  const recordedDate = allergy?.recordedDate ?? '';
 
   const severityColor = (): string => {
     switch (severity.toLowerCase()) {
@@ -50,9 +48,6 @@ export function AllergyCard({ allergy }: { allergy: Allergy }) {
   return (
     <CardContainer>
       <View style={s.row}>
-        <Text style={s.allergy}>
-          {capitalizeFirstCharacter(display)}
-        </Text>
         <Text style={[s.severity, { color: severityColor() }]}>
           {capitalizeFirstCharacter(severity)}
         </Text>

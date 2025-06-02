@@ -132,7 +132,7 @@ export default function Dashboard() {
   const activeMedications = medications?.filter((med: Medication) => med?.status === 'active');
   const activeConditions = conditions?.filter((condition: Condition) => condition?.clinicalStatus?.text === 'Active');
   const activeGoals = goals?.filter((goal: Goal) => activeGoalStates.includes(goal?.achievementStatus?.coding[0].display));
-  const activeAllergies = allergies?.filter((allergy: Allergy) => allergy?.clinicalStatus?.text === 'Active');
+  const activeAllergies = allergies;
   const recentLabDate = labs?.[0]?.date;
   const recentLabs = labs?.filter((lab: LabImagingReport) =>
     new Date(lab.date).toDateString() === new Date(recentLabDate).toDateString());
@@ -293,7 +293,7 @@ export default function Dashboard() {
           {/* Labs */}
           <MyHealthBlock
             viewAllRoute="my-health/lab-results"
-            title="Labs"
+            title="Lab"
             viewAll={!!labs?.length}
             icon={<FontAwesome5 name="vial" size={g.ms(20)} color={g.neutral700} />}
             loading={loadingLabs}

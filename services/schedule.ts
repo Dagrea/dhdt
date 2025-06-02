@@ -8,7 +8,7 @@ import { getToken } from './access-token';
  */
 async function getSchedule() {
   const token = await getToken();
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Schedule`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Schedule`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,

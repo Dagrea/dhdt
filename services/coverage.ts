@@ -65,7 +65,7 @@ export async function coverageCreate(data: { insurer: string, memberID: string, 
       value: data?.groupNumber
     },
   ] : null;
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Coverage`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Coverage`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -142,7 +142,7 @@ export function useCreateCoverage() {
 async function getCoverage() {
   const token = await getToken();
   const patientId = await SecureStore.getItemAsync('patient_id');
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Coverage?patient=Patient/${patientId}&_count=100&_offset=0`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Coverage?patient=Patient/${patientId}&_count=100&_offset=0`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -193,7 +193,7 @@ export async function coverageUpdate(data: { coverageID: string, insurer: string
       value: data?.groupNumber
     },
   ] : null;
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Coverage/${data?.coverageID}`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Coverage/${data?.coverageID}`, {
     method: 'PUT',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -255,7 +255,7 @@ export async function coverageCancel(data: { coverageID: string, insurer: string
   const date = new Date();
   const currentDay = `${date.getFullYear()}-${(`0${date.getMonth() + 1}`).slice(-2)}-${(`0${date.getDate()}`).slice(-2)}`;
 
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Coverage/${data.coverageID}`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Coverage/${data.coverageID}`, {
     method: 'PUT',
     headers: {
       Authorization: `Bearer ${token}`,

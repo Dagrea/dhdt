@@ -10,7 +10,7 @@ import { getToken } from './access-token';
 async function getObservations() {
   const token = await getToken();
   const patientID = await SecureStore.getItemAsync('patient_id');
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Observation?category=vital-signs&patient=Patient/${patientID}&_count=100&_offset=0`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Observation?category=vital-signs&patient=Patient/${patientID}&_count=100&_offset=0`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,

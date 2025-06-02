@@ -16,14 +16,16 @@ import { getToken } from './access-token';
 async function getAppointments({ pageParam: offset }) {
   const token = await getToken();
   const patientID = await SecureStore.getItemAsync('patient_id');
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Appointment?patient=Patient/${patientID}&_sort=-date&_count=100&_offset=${offset}`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Appointment?patient=Patient/${patientID}&_sort=-date&_count=100&_offset=${offset}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
       accept: 'application/json'
     }
   });
+
   const json = await res.json();
+  console.log("total", json?.total || json?.data?.total || "no")
   return json.entry?.map((entry) => entry.resource)?.sort((a: any, b: any) => (new Date(b.start).getTime() - new Date(a.start).getTime())) || [];
 }
 
@@ -54,7 +56,7 @@ export function useAppointments() {
  */
 async function getSlot(date: string, id: string, duration) {
   const token = await getToken();
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Slot?schedule=${id}&start=${date}&end=${date}&duration=${duration}`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Slot?schedule=${id}&start=${date}&end=${date}&duration=${duration}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -128,7 +130,7 @@ async function appointmentCreate({
   const token = await getToken();
   const patientID = await SecureStore.getItemAsync('patient_id');
 
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Appointment`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Appointment`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -231,7 +233,7 @@ async function appointmentCancel({
 }: AppointmentCancellationData) {
   const token = await getToken();
   const patientID = await SecureStore.getItemAsync('patient_id');
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Appointment/${id}`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Appointment/${id}`, {
     method: 'PUT',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -257,7 +259,6 @@ async function appointmentCancel({
       ]
     })
   });
-
   if (!res.ok) throw Error;
 }
 

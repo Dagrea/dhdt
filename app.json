@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "VivoCare",
-    "slug": "fhir-app",
+    "slug": "demo-digital-health-twin",
     "version": "1.1.2",
     "orientation": "portrait",
     "icon": "./assets/appstore.png",
@@ -20,7 +20,7 @@
       "infoPlist": {
         "NSCameraUsageDescription": "This app uses the camera to securely capture credit card information."
       },
-      "bundleIdentifier": "com.brewerdigital.fhirdashboard"
+      "bundleIdentifier": "com.saasjet.thdt"
     },
     "android": {
       "versionCode": 25,
@@ -33,9 +33,10 @@
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.permission.DOWNLOAD_WITHOUT_NOTIFICATION",
-        "android.permission.ACCESS_NETWORK_STATE"
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.brewerdigital.fhirdashboard",
+      "package": "com.saasjet.thdt",
       "googleServicesFile": "./google-services.json"
     },
     "web": {
@@ -65,9 +66,9 @@
         "apiKey": "1e30b647adf4a385efbbb03d2c5f3a34"
       },
       "eas": {
-        "projectId": "eabcadfa-7fee-400e-8e04-f2f5c4d1d35b"
+        "projectId": "33e5e5ba-ad75-4b16-9d54-267a31698132"
       }
     },
-    "owner": "brewerdigital"
+    "owner": "oleksandrzhuravlov"
   }
 }

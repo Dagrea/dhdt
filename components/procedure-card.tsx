@@ -26,7 +26,7 @@ export function ProcedureCard({ procedure }: { procedure: Procedure, }) {
         style={s.procedureType}
         numberOfLines={3}
       >
-        {capitalizeFirstCharacter(codeDisplay)}
+        {codeDisplay && capitalizeFirstCharacter(codeDisplay)}
       </Text>
       <Text style={s.procedureDate}>
         {formatDate(performedDateTime)}

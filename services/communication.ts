@@ -13,7 +13,7 @@ import { getToken } from './access-token';
 async function getCommunication({ pageParam: offset }) {
   const token = await getToken();
   const patientID = await SecureStore.getItemAsync('patient_id');
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Communication?patient=Patient/${patientID}&_count=100&_offset=${offset}`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Communication?patient=Patient/${patientID}&_count=100&_offset=${offset}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -52,7 +52,7 @@ async function communicationSubmit(message: string) {
   const patientId = await SecureStore.getItemAsync('patient_id');
   const isoString = new Date().toISOString();
 
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Communication`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Communication`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
