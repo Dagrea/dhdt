@@ -11,7 +11,7 @@ import { getToken } from './access-token';
 async function getDiagnosticURI(id: string) {
   if (!id) return null;
   const token = await getToken();
-  const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/DiagnosticReport/${id}`, {
+  const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/DiagnosticReport/${id}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -64,9 +64,9 @@ async function getLabResults() {
   const patientID = await SecureStore.getItemAsync('patient_id');
   const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
-  const imagingReports = await fetchReport(`${apiUrl}/DocumentReference?subject=Patient/${patientID}&category=imagingreport&_count=100&_offset=0`, token);
-  const labReports = await fetchReport(`${apiUrl}/DocumentReference?subject=Patient/${patientID}&category=labreport&_count=100&_offset=0`, token);
-  const diagnosticsReports = await fetchReport(`${apiUrl}/DiagnosticReport?patient=Patient/${patientID}&_count=100&_offset=0`, token);
+  const imagingReports = await fetchReport(`${apiUrl}/api/DocumentReference?subject=Patient/${patientID}&category=imagingreport&_count=100&_offset=0`, token);
+  const labReports = await fetchReport(`${apiUrl}/api/DocumentReference?subject=Patient/${patientID}&category=labreport&_count=100&_offset=0`, token);
+  const diagnosticsReports = await fetchReport(`${apiUrl}/api/DiagnosticReport?patient=Patient/${patientID}&_count=100&_offset=0`, token);
   return [
     ...imagingReports,
     ...labReports,

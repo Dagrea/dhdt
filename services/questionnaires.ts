@@ -21,7 +21,7 @@ export enum QuestionnaireIds {
  */
 async function getQuestionnaire(id: string) {
   const token = await getToken();
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Questionnaire/${id}`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Questionnaire/${id}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -76,7 +76,7 @@ async function questionnaireSubmit(data: { formData: { key: string }; questionna
     return arr;
   }, []);
 
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/QuestionnaireResponse`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/QuestionnaireResponse`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,

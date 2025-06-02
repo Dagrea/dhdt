@@ -39,11 +39,14 @@
     "production": {
       "env": {
         "EXPO_PUBLIC_AUTH_GRANT_TYPE": "client_credentials",
-        "EXPO_PUBLIC_API_URL": "https://fumage-brewerdigital-apiprize.canvasmedical.com",
+        "EXPO_PUBLIC_API_URL": "https://xpc-dev.canvasmedical.com",
         "EXPO_PUBLIC_STRIPE_API_URL": "https://gozj2why30.execute-api.us-east-2.amazonaws.com/Prod",
       },
       "ios": {
         "image": "latest"
+      },
+      "android": {
+        "buildType": "apk"
       }
     }
   },

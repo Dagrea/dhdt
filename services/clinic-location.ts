@@ -8,7 +8,7 @@ import { getToken } from './access-token';
  */
 async function getClinicLocation() {
   const token = await getToken();
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Location/${process.env.EXPO_PUBLIC_CLINIC_ID}`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Location/${process.env.EXPO_PUBLIC_CLINIC_ID}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,

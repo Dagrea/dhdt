@@ -36,7 +36,7 @@ function birthSexCodeSwitch(birthSex: string): string {
  */
 async function patientCreate(data: PatientProfileFormData): Promise<void> {
   const token = await getToken();
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Patient`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Patient`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -121,7 +121,7 @@ async function getPatient() {
   const patientId = await SecureStore.getItemAsync('patient_id');
   if (!patientId) throw (new Error('No patient id found'));
 
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Patient/${patientId}`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Patient/${patientId}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -193,7 +193,7 @@ async function updatePatient(data: PatientProfileFormData): Promise<void> {
     }],
     ...(data?.avatar) && { photo: [{ data: data?.avatar }] },
   };
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/Patient/${patientId}`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/Patient/${patientId}`, {
     method: 'PUT',
     headers: {
       Authorization: `Bearer ${token}`,
