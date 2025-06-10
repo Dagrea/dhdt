@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "thdt",
-    "slug": "thdt",
+    "slug": "demo-digital-health-twin",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -14,14 +14,21 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "buildNumber": "25",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to securely capture credit card information.",
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "bundleIdentifier": "com.saasjet.thdt"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.saasjet.thdt"
     },
     "web": {
       "bundler": "metro",
@@ -31,8 +38,14 @@
     "plugins": [
       "expo-router"
     ],
+    "extra": {
+      "eas": {
+        "projectId": "33e5e5ba-ad75-4b16-9d54-267a31698132"
+      }
+    },
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "owner": "oleksandrzhuravlov"
   }
 }

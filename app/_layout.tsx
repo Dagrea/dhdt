@@ -1,59 +1,79 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { useEffect, useCallback } from 'react';
+import { ActivityIndicator, StyleSheet } from 'react-native';
+import { Slot } from 'expo-router';
+import * as Notifications from 'expo-notifications';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { StatusBar } from 'expo-status-bar';
+import {
+  useFonts,
+  Inter_100Thin as InterThin,
+  Inter_200ExtraLight as InterExtraLight,
+  Inter_300Light as InterLight,
+  Inter_400Regular as InterRegular,
+  Inter_500Medium as InterMedium,
+  Inter_600SemiBold as InterSemiBold,
+  Inter_700Bold as InterBold,
+  Inter_800ExtraBold as InterExtraBold,
+  Inter_900Black as InterBlack,
+} from '@expo-google-fonts/inter';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { StateMachineProvider } from 'little-state-machine';
+import { registerForPushNotificationsAsync } from '@services';
+import { g } from '@styles/variables';
 
-import { useColorScheme } from '@/components/useColorScheme';
-
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
-
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
-};
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
+const queryClient = new QueryClient();
+
+const s = StyleSheet.create({
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
+  const [fontsLoaded] = useFonts({
+    InterThin,
+    InterExtraLight,
+    InterLight,
+    InterRegular,
+    InterMedium,
+    InterSemiBold,
+    InterBold,
+    InterExtraBold,
+    InterBlack,
   });
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
-    if (error) throw error;
-  }, [error]);
+    registerForPushNotificationsAsync();
+  }, []);
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [fontsLoaded]);
 
-  if (!loaded) {
-    return null;
+  if (!fontsLoaded) {
+    return <ActivityIndicator style={s.loading} size="large" color={g.primaryBlue} />;
   }
 
-  return <RootLayoutNav />;
-}
-
-function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <StatusBar style="light" />
+      <StateMachineProvider>
+        <Slot onLayout={onLayoutRootView} />
+      </StateMachineProvider>
+    </QueryClientProvider>
   );
 }

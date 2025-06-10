@@ -3,9 +3,36 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
+      "@*": [
         "./*"
-      ]
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@constants/*": [
+        "constants/*"
+      ],
+      "@interfaces/*": [
+        "interfaces/*"
+      ],
+      "@services/*": [
+        "services/*"
+      ],
+      "@stores": [
+        "store/*"
+      ],
+      "@ui/*": [
+        "ui/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@styles/*": [
+        "styles/*"
+      ],
     }
   },
   "include": [
