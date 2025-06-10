@@ -119,6 +119,7 @@ export default function FilesPage() {
 					data={files}
 					keyExtractor={(item) => item.id}
 					renderItem={renderItem}
+          numColumns={3}
 					showsVerticalScrollIndicator={false}
 				/>
 			)}
